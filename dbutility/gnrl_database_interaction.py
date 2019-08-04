@@ -419,7 +419,11 @@ class GBQConnection(object):
 
                 if isinstance(query,str):
 
-                    self.client = bigquery.Client.from_service_account_json(self.privateKey)
+                    #if there is no private key, authorisation can fall back to user login or else fail
+                    if self.privateKey != None:
+                        self.client = bigquery.Client.from_service_account_json(self.privateKey)
+                    else:
+                        self.client = bigquery.Client()
 
                     self.job_config = bigquery.QueryJobConfig()
                     self.job_config.use_legacy_sql = self.useLegacy

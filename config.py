@@ -25,12 +25,16 @@ import sys
 import logging
 import os
 from importlib import reload
-from UtilityPackagesV2.mt_email import email_
+from DataCrane.mt_email import email_
 
 
 class config(object):
 
     def __init__(self, logFileName = None):
+
+
+        ##############################################################################
+        ## Permissions ##
 
         self.permissions = {
             'chris.pickford': {
@@ -43,6 +47,9 @@ class config(object):
             }
 
         }
+
+        ##############################################################################
+        ## Logging ##
 
         self.statusLog = {
             'OK ': '[__OK__]',
@@ -69,40 +76,13 @@ class config(object):
         # self.logPath = self.set_logging(logFileName)
         # print('Set log function returned: ', self.logPath)
 
+        ##############################################################################
+        ## Private keys and service accounrts ##
 
-        self.googleServiceAccountPrivateKey = 'Not Set'
-
-        if self.get_platform() == 'Windows':
-            '''
-            self.googleServiceAccountPrivateKey = os.path.join(os.path.expanduser('~')
-                                                          , os.path.sep
-                                                          , 'PRIVATE KEYS'
-                                                          , 'Google'
-                                                          , 'Datascience Service Account'
-                                                          , 'privateKey.json'
-                                                          )
-            '''
+        self.googleServiceAccountPrivateKey = None
 
 
 
-        elif self.get_platform() == 'Mac':
-            self.googleServiceAccountPrivateKey = os.path.join(os.path.expanduser('~')
-                                                          , os.path.sep
-                                                          , 'Documents'
-                                                          , 'Coding'
-                                                          , 'Python'
-                                                          , 'Datascience'
-                                                          , 'PRIVATE KEYS'
-                                                          , 'Google'
-                                                          , 'Datascience Service Account'
-                                                          , 'privateKey.json'
-                                                          )
-
-        self.email = {
-            'username': 'drchrispickford@gmail.com',
-            'password': os.environ.get('datascienceAccount'),
-            'my address': 'drchrispickford@gmail.com'
-        }
 
         self.googleAdwordsAPI = {
 
@@ -112,6 +92,19 @@ class config(object):
             'owm_api_url' : 'http://api.openweathermap.org/data/2.5/weather',
             'owm_appid' : ''
         }
+
+        ##############################################################################
+        ## Email ##
+
+        self.email = {
+            'username': 'drchrispickford@gmail.com',
+            'password': os.environ.get('datascienceAccount'),
+            'my address': 'drchrispickford@gmail.com'
+        }
+
+        ##############################################################################
+        ## Class variables ##
+
         self.logger = None
         self.debug = True
         self.dataset = None
